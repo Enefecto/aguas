@@ -3,11 +3,21 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Inicio</title>
   {% tailwind_css %}
 </head>
-<body>
-  <h1 class="">Hola mundo, app de aguas en creación</h1>
+<body class="bg-gray-100">
+
+  <nav class="fixed top-0 left-0 right-0 h-16 bg-white shadow flex items-center px-6 z-20">
+    <h1 class="text-xl font-bold">Fuentes de agua en Chile</h1>
+  </nav>
+
+  <div class="pt-16">
+    <div id="map">
+      {{ mapa|safe }}
+    </div>
+  </div>
+
 </body>
 </html>
