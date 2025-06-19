@@ -1,0 +1,17 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Detalle de Punto</title>
+  {% tailwind_css %}
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+  <a href="/" class="text-blue-600 underline">&larr; Volver al mapa</a>
+  <h1 class="text-2xl font-bold my-4">Detalle de coordenada UTM (E={{ e }}, N={{ n }})</h1>
+  <div class="bg-white p-4 rounded shadow">
+    <img src="data:image/png;base64,{{ plot_png }}" alt="Caudal vs Fecha" class="w-full h-auto" />
+  </div>
+</body>
+</html>

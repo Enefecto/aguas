@@ -4,19 +4,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Inicio</title>
+  <title>Fuentes de agua en Chile</title>
   {% tailwind_css %}
+  <style>
+    .leaflet-container { width:100% !important; height:100vh !important; }
+  </style>
 </head>
-<body class="bg-gray-100">
+<body class="h-screen flex overflow-hidden">
 
-  <nav class="fixed top-0 left-0 right-0 h-16 bg-white shadow flex items-center px-6 z-20">
-    <h1 class="text-xl font-bold">Fuentes de agua en Chile</h1>
-  </nav>
+  <!-- SIDEBAR -->
+  <aside class="w-64 bg-white p-6 overflow-auto shadow-lg z-10">
+    <h2 class="text-lg font-semibold mb-4">Filtros</h2>
+    <form method="get" class="space-y-4">
 
-  <div class="pt-16">
-    <div id="map">
-      {{ mapa|safe }}
-    </div>
+      <!-- Comuna -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Comuna</label>
+        <select name="comuna" class="w-full border px-2 py-1">
+          <!-- Vacío => Todas -->
+          <option value="" {% if comuna_sel == "" %}selected{% endif %}>— Todas —</option>
+          {% for c in comunas %}
+            <option value="{{ c }}"
+              {% if c == comuna_sel %}selected{% endif %}>
+              {{ c }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Sub-subcuenca -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Sub-subcuenca</label>
+        <select name="subsub" class="w-full border px-2 py-1">
+          <option value="" {% if subsel == "" %}selected{% endif %}>— Todas —</option>
+          {% for s in subsubs %}
+            <option value="{{ s }}"
+              {% if s == subsel %}selected{% endif %}>
+              {{ s }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Caudal promedio -->
+      <div>
+        <label class="block text-sm font-medium mb-1">
+          Caudal promedio (m³/s)
+        </label>
+        <div class="space-y-2">
+          <div>
+            <span class="text-xs text-gray-600">Mín: {{ sel_min }}</span>
+            <input type="number" name="min_avg"
+                   min="{{ min_avg }}" max="{{ max_avg }}"
+                   step="0.01" value="{{ sel_min }}"
+                   class="w-full border px-2 py-1" />
+          </div>
+          <div>
+            <span class="text-xs text-gray-600">Máx: {{ sel_max }}</span>
+            <input type="number" name="max_avg"
+                   min="{{ min_avg }}" max="{{ max_avg }}"
+                   step="0.01" value="{{ sel_max }}"
+                   class="w-full border px-2 py-1" />
+          </div>
+        </div>
+      </div>
+
+      <button type="submit"
+              class="mt-4 w-full bg-blue-600 text-white py-2 rounded">
+        Filtrar
+      </button>
+    </form>
+  </aside>
+
+  <!-- MAPA -->
+  <div id="map" class="flex-1">
+    {{ mapa|safe }}
   </div>
 
 </body>
