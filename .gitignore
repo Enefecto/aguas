@@ -75,3 +75,5 @@ htmlcov/
 *.tmp
 *.swp
 *.swo
+
+aguas/data/datos.csv
